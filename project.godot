@@ -159,6 +159,7 @@ shoot_down={
 
 [layer_names]
 
+2d_physics/layer_2="2"
 3d_physics/layer_2="player"
 
 [rendering]
