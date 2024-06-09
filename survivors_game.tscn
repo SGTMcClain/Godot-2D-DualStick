@@ -9,7 +9,10 @@ y_sort_enabled = true
 metadata/_edit_vertical_guides_ = [1920.0, 960.0]
 metadata/_edit_horizontal_guides_ = [1080.0, 540.0]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background Canvas Layer" type="CanvasLayer" parent="."]
+layer = -100
+
+[node name="ColorRect" type="ColorRect" parent="Background Canvas Layer"]
 offset_right = 1920.0
 offset_bottom = 1080.0
 
