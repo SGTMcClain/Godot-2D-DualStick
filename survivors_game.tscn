@@ -1,13 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://f2h7jo1nk8d1"]
+[gd_scene load_steps=5 format=3 uid="uid://f2h7jo1nk8d1"]
 
+[ext_resource type="Script" path="res://survivors_game.gd" id="1_00xac"]
 [ext_resource type="PackedScene" uid="uid://wj8mvxbxudgh" path="res://player.tscn" id="1_yceuh"]
 [ext_resource type="PackedScene" uid="uid://bis8hthrch6bf" path="res://pine_tree.tscn" id="2_qvhd4"]
-[ext_resource type="PackedScene" uid="uid://d3ti8niafdje5" path="res://mob.tscn" id="3_7llf5"]
+
+[sub_resource type="Curve2D" id="Curve2D_x61sv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -215, -311, 0, 0, 0, 0, 2258, -309, 0, 0, 0, 0, 2251, 1246, 0, 0, 0, 0, -213, 1248, 0, 0, 0, 0, -215, -311)
+}
+point_count = 5
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_00xac")
 metadata/_edit_vertical_guides_ = [1920.0, 960.0]
 metadata/_edit_horizontal_guides_ = [1080.0, 540.0]
+
+[node name="Mob Spawn Timer" type="Timer" parent="."]
+wait_time = 0.03
+autostart = true
 
 [node name="Background Canvas Layer" type="CanvasLayer" parent="."]
 layer = -100
@@ -19,8 +30,14 @@ offset_bottom = 1080.0
 [node name="Player" parent="." instance=ExtResource("1_yceuh")]
 position = Vector2(960, 540)
 
-[node name="Mob" parent="." instance=ExtResource("3_7llf5")]
-position = Vector2(1697, 213)
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-960, -540)
+curve = SubResource("Curve2D_x61sv")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-215, -311)
+rotation = 0.000808734
 
 [node name="Pine Tree" parent="." instance=ExtResource("2_qvhd4")]
 position = Vector2(382, 570)
@@ -52,29 +69,33 @@ position = Vector2(135, 268)
 [node name="Pine Tree10" parent="." instance=ExtResource("2_qvhd4")]
 position = Vector2(161, 938)
 
-[node name="Mob2" parent="." instance=ExtResource("3_7llf5")]
-position = Vector2(383, 989)
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
 
-[node name="Mob3" parent="." instance=ExtResource("3_7llf5")]
-position = Vector2(1467, 978)
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.568627)
 
-[node name="Mob4" parent="." instance=ExtResource("3_7llf5")]
-position = Vector2(1147, 348)
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 221
+text = "Game Over"
 
-[node name="Mob5" parent="." instance=ExtResource("3_7llf5")]
-position = Vector2(754, 313)
-
-[node name="Mob6" parent="." instance=ExtResource("3_7llf5")]
-position = Vector2(655, 540)
-
-[node name="Mob7" parent="." instance=ExtResource("3_7llf5")]
-position = Vector2(880, 700)
-
-[node name="Mob8" parent="." instance=ExtResource("3_7llf5")]
-position = Vector2(1005, 305)
-
-[node name="Mob9" parent="." instance=ExtResource("3_7llf5")]
-position = Vector2(914, 163)
-
-[node name="Mob10" parent="." instance=ExtResource("3_7llf5")]
-position = Vector2(885, 908)
+[connection signal="timeout" from="Mob Spawn Timer" to="." method="_on_timer_timeout"]
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
