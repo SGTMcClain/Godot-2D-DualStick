@@ -57,3 +57,24 @@ position = Vector2(383, 989)
 
 [node name="Mob3" parent="." instance=ExtResource("3_7llf5")]
 position = Vector2(1467, 978)
+
+[node name="Mob4" parent="." instance=ExtResource("3_7llf5")]
+position = Vector2(1147, 348)
+
+[node name="Mob5" parent="." instance=ExtResource("3_7llf5")]
+position = Vector2(754, 313)
+
+[node name="Mob6" parent="." instance=ExtResource("3_7llf5")]
+position = Vector2(655, 540)
+
+[node name="Mob7" parent="." instance=ExtResource("3_7llf5")]
+position = Vector2(880, 700)
+
+[node name="Mob8" parent="." instance=ExtResource("3_7llf5")]
+position = Vector2(1005, 305)
+
+[node name="Mob9" parent="." instance=ExtResource("3_7llf5")]
+position = Vector2(914, 163)
+
+[node name="Mob10" parent="." instance=ExtResource("3_7llf5")]
+position = Vector2(885, 908)
